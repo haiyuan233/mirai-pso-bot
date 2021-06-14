@@ -5,14 +5,15 @@ const schedule = require('node-schedule');
 
 const schjs = require('./plugin/schedule')
 const botjs = require('./plugin/bot')
-
+const {config} = require('setting');
 // 接受消息,发送消息(*)
 const AipOcrClient = require("baidu-aip-sdk").ocr;
 
 // 设置APPID/AK/SK
-const APP_ID = "22729078";
-const API_KEY = "qoR6fqAW1RTacgE8UD9ozzji";
-const SECRET_KEY = "76lU9tpoEiRTzb4eimVyQcKDlrIoTLWO";
+const APP_ID = config.baidu.APP_ID;
+const API_KEY = config.baidu.API_KEY;
+const SECRET_KEY = config.baidu.SECRET_KEY;
+
 
 // 新建一个对象，建议只保存一个对象调用服务接口
 const client = new AipOcrClient(APP_ID, API_KEY, SECRET_KEY);
@@ -25,10 +26,10 @@ const client = new AipOcrClient(APP_ID, API_KEY, SECRET_KEY);
  * enableWebsocket: 是否开启 WebSocket，需要和 mirai-api-http 的设置一致
  */
 const bot = new Mirai({
-    host: 'http://42.193.176.171:8055',
+    host: config.mcl.host,
     // host: 'http://127.0.0.1:8055',
-    authKey: 'INITKEYL17wDabe',
-    qq: 2244507006,
+    authKey: config.mcl.token,
+    qq: config.mcl.qq,
     enableWebsocket: false,
 });
 
@@ -48,7 +49,7 @@ bot.onSignal('verified', async () => {
 });
 
 botjs(client, bot, Plain, At);
-schjs(schedule, bot, 'test', 2718316290);
+// schjs(schedule, bot, 'test', 2718316290);
 
 
 /* 开始监听消息(*)

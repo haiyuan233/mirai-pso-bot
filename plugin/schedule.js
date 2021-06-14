@@ -7,5 +7,5 @@ module.exports = function scheduleJs(schedule, bot, message, id){
             console.log('scheduleCronstyle:' + new Date());
         });
     }
-    // scheduleCronstyle(bot, message, id)
+    scheduleCronstyle(bot, message, id)
 }
